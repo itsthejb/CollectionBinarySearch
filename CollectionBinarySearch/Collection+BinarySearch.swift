@@ -7,15 +7,36 @@ public extension Collection
   IndexDistance == Index,
   Index: SignedInteger
 {
+  /// Find index of equatable element using binary search.
+  ///
+  /// - Parameters:
+  ///   - element: Object to find
+  ///   - option: Find lower bound (firstEqual), upper bound (lastEqual),
+  /// or "normal" index with insertionIndex
+  /// - Returns: Found index or nil
   func binarySearchIndex(
-    of object: Self.Iterator.Element,
-    option: NSBinarySearchingOptions = NSBinarySearchingOptions.firstEqual) -> Index?
+    of element: Self.Iterator.Element,
+    option: NSBinarySearchingOptions = NSBinarySearchingOptions.insertionIndex) -> Index?
   {
-    return binarySearchIndex(equality: { $0 == object }, greaterThan: { $0 > object }, lessThan: { $0 < object })
+    return binarySearchIndex(
+      with: option,
+      equality: { $0 == element },
+      greaterThan: { $0 > element },
+      lessThan: { $0 < element }
+    )
   }
 
+  /// Binary search using custom comparator closures.
+  ///
+  /// - Parameters:
+  ///   - option: Find lower bound (firstEqual), upper bound (lastEqual),
+  /// or "normal" index with insertionIndex
+  ///   - equality: Equality test closure
+  ///   - greaterThan: greaterThan test closure
+  ///   - lessThan: lessThan test closure
+  /// - Returns: Found index or nil
   func binarySearchIndex(
-    with option: NSBinarySearchingOptions = NSBinarySearchingOptions.firstEqual,
+    with option: NSBinarySearchingOptions = NSBinarySearchingOptions.insertionIndex,
     equality: (Self.Iterator.Element) -> Bool,
     greaterThan: (Self.Iterator.Element) -> Bool,
     lessThan: (Self.Iterator.Element) -> Bool
@@ -36,10 +57,15 @@ public extension RangeReplaceableCollection
   IndexDistance == Index,
   Index: SignedInteger
 {
+  /// Insert an element into a `RangeReplaceableCollection` at
+  /// the sorted index point.
+  ///
+  /// - Parameter element: Item to insert
+  /// - Returns: Index where inserted
   @discardableResult
-  mutating func insertAtSorted(_ object: Iterator.Element) -> Index {
-    let index = indexOfInsertion(object)
-    insert(object, at: index)
+  mutating func insertAtSorted(_ element: Iterator.Element) -> Index {
+    let index = indexOfInsertion(element)
+    insert(element, at: index)
     return index
   }
 }
@@ -52,15 +78,15 @@ fileprivate extension Collection
   Index: SignedInteger
 {
   func indexOfBoundedObject(
-    _ object: Self.Iterator.Element,
+    _ element: Self.Iterator.Element,
     option: NSBinarySearchingOptions = NSBinarySearchingOptions.firstEqual
     ) -> Index?
   {
-    return indexOfBoundedObject(option, equality: { $0 == object }, greaterThan: { $0 > object })
+    return indexOfBoundedObject(option, equality: { $0 == element }, greaterThan: { $0 > element })
   }
 
-  func indexOfInsertion(_ object: Self.Iterator.Element) -> Index {
-    return indexOfInsertion({ $0 == object }, greaterThan: { $0 > object }, lessThan: { $0 < object })
+  func indexOfInsertion(_ element: Self.Iterator.Element) -> Index {
+    return indexOfInsertion({ $0 == element }, greaterThan: { $0 > element }, lessThan: { $0 < element })
   }
 
   func indexOfBoundedObject(

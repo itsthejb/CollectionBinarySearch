@@ -55,4 +55,24 @@ final class CollectionBinarySearchTests: XCTestCase {
       }
     }
   }
+
+  func testFirstEqual() {
+    XCTAssertEqual([5,5,5,5,5].binarySearchIndex(of: 5, option: .firstEqual), 0)
+  }
+
+  func testLastEqual() {
+    XCTAssertEqual([5,5,5,5,5].binarySearchIndex(of: 5, option: .lastEqual), 4)
+  }
+
+  func testInsertionPointShouldInsertInMiddle() {
+    XCTAssertEqual([5,5,5,5,5].binarySearchIndex(of: 5, option: .insertionIndex), 2)
+  }
+
+  func testHandlesNotFoundLow() {
+    XCTAssertNil([5,6,7,8,9].binarySearchIndex(of: 4, option: .firstEqual))
+  }
+
+  func testHandlesNotFoundHigh() {
+    XCTAssertNil([5,6,7,8,9].binarySearchIndex(of: 10, option: .firstEqual))
+  }
 }

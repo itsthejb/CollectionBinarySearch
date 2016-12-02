@@ -27,18 +27,14 @@ final class CollectionBinarySearchTests: XCTestCase {
     }
   }
 
-  override func setUp() {
-    super.setUp()
-    a = generate()
-  }
-
   func testInsertionSort() {
     measure {
       for _ in 0..<Constants.iterations {
+        self.a = self.generate()
+
         for i in 0..<max(0, self.a.count - 1) {
           XCTAssertLessThanOrEqual(self.a[i], self.a[i + 1])
         }
-        self.a = self.generate()
       }
     }
   }
@@ -46,14 +42,19 @@ final class CollectionBinarySearchTests: XCTestCase {
   func testBinarySearch() {
     measure {
       for _ in 0..<Constants.iterations {
+        self.a = self.generate()
+
         for _ in 0..<max(0, self.a.count - 1) {
           let expected = Int(arc4random_uniform(UInt32(self.a.count - 1)))
           let actual = self.a.binarySearchIndex(of: self.a[expected])!
           XCTAssertEqual(self.a[expected], self.a[actual])
         }
-        self.a = self.generate()
       }
     }
+  }
+
+  func testEmpty() {
+    XCTAssertNil([].binarySearchIndex(of: 5, option: .firstEqual))
   }
 
   func testFirstEqual() {

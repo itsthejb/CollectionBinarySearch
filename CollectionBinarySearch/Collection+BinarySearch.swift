@@ -29,6 +29,21 @@ public extension Collection
   }
 }
 
+public extension RangeReplaceableCollection
+  where
+  Iterator.Element: Comparable,
+  Iterator.Element: Equatable,
+  IndexDistance == Index,
+  Index: SignedInteger
+{
+  @discardableResult
+  mutating func insertAtSorted(_ object: Iterator.Element) -> Index {
+    let index = indexOfInsertion(object)
+    insert(object, at: index)
+    return index
+  }
+}
+
 fileprivate extension Collection
   where
   Iterator.Element: Comparable,
@@ -125,17 +140,3 @@ fileprivate extension Collection
   }
 }
 
-public extension RangeReplaceableCollection
-  where
-  Iterator.Element: Comparable,
-  Iterator.Element: Equatable,
-  IndexDistance == Index,
-  Index: SignedInteger
-{
-  @discardableResult
-  mutating func insertAtSorted(_ object: Iterator.Element) -> Index {
-    let index = indexOfInsertion(object)
-    insert(object, at: index)
-    return index
-  }
-}

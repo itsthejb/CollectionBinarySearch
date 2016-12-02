@@ -7,8 +7,6 @@ public extension Collection
   IndexDistance == Index,
   Index: SignedInteger
 {
-  typealias Comparator = (Self.Iterator.Element) -> Bool
-
   func binarySearchIndex(
     of object: Self.Iterator.Element,
     option: NSBinarySearchingOptions = NSBinarySearchingOptions.firstEqual) -> Index?
@@ -18,9 +16,9 @@ public extension Collection
 
   func binarySearchIndex(
     with option: NSBinarySearchingOptions = NSBinarySearchingOptions.firstEqual,
-    equality: Comparator,
-    greaterThan: Comparator,
-    lessThan: Comparator
+    equality: (Self.Iterator.Element) -> Bool,
+    greaterThan: (Self.Iterator.Element) -> Bool,
+    lessThan: (Self.Iterator.Element) -> Bool
     ) -> Index?
   {
     if option == NSBinarySearchingOptions.insertionIndex {
@@ -52,8 +50,8 @@ fileprivate extension Collection
 
   func indexOfBoundedObject(
     _ option: NSBinarySearchingOptions = NSBinarySearchingOptions.firstEqual,
-    equality: Comparator,
-    greaterThan: Comparator
+    equality: (Self.Iterator.Element) -> Bool,
+    greaterThan: (Self.Iterator.Element) -> Bool
     ) -> Index?
   {
     var lo = self.startIndex
@@ -93,9 +91,9 @@ fileprivate extension Collection
   }
 
   func indexOfInsertion(
-    _ equality: Comparator,
-    greaterThan: Comparator,
-    lessThan: Comparator
+    _ equality: (Self.Iterator.Element) -> Bool,
+    greaterThan: (Self.Iterator.Element) -> Bool,
+    lessThan: (Self.Iterator.Element) -> Bool
     ) -> Index
   {
     guard count > 0 else {

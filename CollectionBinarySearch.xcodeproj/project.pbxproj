@@ -83,8 +83,8 @@
 		493A8C3B1DF1D202001908E0 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				493A8C3C1DF1D202001908E0 /* CollectionBinarySearchTests.swift */,
 				493A8C3E1DF1D202001908E0 /* Info.plist */,
+				493A8C3C1DF1D202001908E0 /* CollectionBinarySearchTests.swift */,
 			);
 			name = Tests;
 			path = CollectionBinarySearchTests;
@@ -411,6 +411,7 @@
 				493A8C441DF1D202001908E0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		493A8C451DF1D202001908E0 /* Build configuration list for PBXNativeTarget "CollectionBinarySearchTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +420,7 @@
 				493A8C471DF1D202001908E0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

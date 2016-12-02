@@ -2,4 +2,4 @@
 
 Swift Collection protocol bounded binary search extensions, with insert-at-sorted functionality.
 
-<a href="./docs/index.html" target="_blank">Documentation</a>
+<a href="https://itsthejb.github.io/CollectionBinarySearch/" target="_blank">Documentation</a>

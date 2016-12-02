@@ -43,7 +43,7 @@ public extension Collection
     ) -> Index?
   {
     if option == NSBinarySearchingOptions.insertionIndex {
-      return indexOfInsertion(equality, greaterThan: greaterThan, lessThan: lessThan)
+      return indexOfInsertion(equality: equality, greaterThan: greaterThan, lessThan: lessThan)
     } else {
       return indexOfBoundedObject(option, equality: equality, greaterThan: greaterThan)
     }
@@ -86,7 +86,11 @@ fileprivate extension Collection
   }
 
   func indexOfInsertion(_ element: Self.Iterator.Element) -> Index {
-    return indexOfInsertion({ $0 == element }, greaterThan: { $0 > element }, lessThan: { $0 < element })
+    return indexOfInsertion(
+      equality: { $0 == element },
+      greaterThan: { $0 > element },
+      lessThan: { $0 < element }
+    )
   }
 
   func indexOfBoundedObject(
@@ -132,7 +136,7 @@ fileprivate extension Collection
   }
 
   func indexOfInsertion(
-    _ equality: (Self.Iterator.Element) -> Bool,
+    equality: (Self.Iterator.Element) -> Bool,
     greaterThan: (Self.Iterator.Element) -> Bool,
     lessThan: (Self.Iterator.Element) -> Bool
     ) -> Index
@@ -151,12 +155,10 @@ fileprivate extension Collection
 
       if equality(val) {
         return mid
-      }
-      else if greaterThan(val) {
+      } else if greaterThan(val) {
         // search low
         hi = mid
-      }
-      else {
+      } else {
         // search hi
         lo = mid + 1
       }
@@ -165,4 +167,3 @@ fileprivate extension Collection
     return lessThan(self[mid]) ? mid + 1 : mid
   }
 }
-

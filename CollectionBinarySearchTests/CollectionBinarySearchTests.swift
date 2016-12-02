@@ -11,7 +11,7 @@ import CollectionBinarySearch
 
 final class CollectionBinarySearchTests: XCTestCase {
   typealias Value = UInt32
-  var a: [Value]!
+  var array: [Value]!
 
   struct Constants {
     static let maxSize: Value = 512
@@ -30,10 +30,10 @@ final class CollectionBinarySearchTests: XCTestCase {
   func testInsertionSort() {
     measure {
       for _ in 0..<Constants.iterations {
-        self.a = self.generate()
+        self.array = self.generate()
 
-        for i in 0..<max(0, self.a.count - 1) {
-          XCTAssertLessThanOrEqual(self.a[i], self.a[i + 1])
+        for i in 0..<max(0, self.array.count - 1) {
+          XCTAssertLessThanOrEqual(self.array[i], self.array[i + 1])
         }
       }
     }
@@ -42,12 +42,12 @@ final class CollectionBinarySearchTests: XCTestCase {
   func testBinarySearch() {
     measure {
       for _ in 0..<Constants.iterations {
-        self.a = self.generate()
+        self.array = self.generate()
 
-        for _ in 0..<max(0, self.a.count - 1) {
-          let expected = Int(arc4random_uniform(UInt32(self.a.count - 1)))
-          let actual = self.a.binarySearchIndex(of: self.a[expected])!
-          XCTAssertEqual(self.a[expected], self.a[actual])
+        for _ in 0..<max(0, self.array.count - 1) {
+          let expected = Int(arc4random_uniform(UInt32(self.array.count - 1)))
+          let actual = self.array.binarySearchIndex(of: self.array[expected])!
+          XCTAssertEqual(self.array[expected], self.array[actual])
         }
       }
     }
@@ -58,22 +58,22 @@ final class CollectionBinarySearchTests: XCTestCase {
   }
 
   func testFirstEqual() {
-    XCTAssertEqual([5,5,5,5,5].binarySearchIndex(of: 5, option: .firstEqual), 0)
+    XCTAssertEqual([5, 5, 5, 5, 5].binarySearchIndex(of: 5, option: .firstEqual), 0)
   }
 
   func testLastEqual() {
-    XCTAssertEqual([5,5,5,5,5].binarySearchIndex(of: 5, option: .lastEqual), 4)
+    XCTAssertEqual([5, 5, 5, 5, 5].binarySearchIndex(of: 5, option: .lastEqual), 4)
   }
 
   func testInsertionPointShouldInsertInMiddle() {
-    XCTAssertEqual([5,5,5,5,5].binarySearchIndex(of: 5, option: .insertionIndex), 2)
+    XCTAssertEqual([5, 5, 5, 5, 5].binarySearchIndex(of: 5, option: .insertionIndex), 2)
   }
 
   func testHandlesNotFoundLow() {
-    XCTAssertNil([5,6,7,8,9].binarySearchIndex(of: 4, option: .firstEqual))
+    XCTAssertNil([5, 6, 7, 8, 9].binarySearchIndex(of: 4, option: .firstEqual))
   }
 
   func testHandlesNotFoundHigh() {
-    XCTAssertNil([5,6,7,8,9].binarySearchIndex(of: 10, option: .firstEqual))
+    XCTAssertNil([5, 6, 7, 8, 9].binarySearchIndex(of: 10, option: .firstEqual))
   }
 }

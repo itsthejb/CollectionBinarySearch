@@ -4,8 +4,8 @@ extension Collection
   where
   Iterator.Element: Comparable,
   Iterator.Element: Equatable,
-  Index == Int,
-  IndexDistance == Int
+  IndexDistance == Index,
+  Index: SignedInteger
 {
   typealias Comparator = (Self.Iterator.Element) -> Bool
 
@@ -56,7 +56,7 @@ extension Collection
     var hi = self.endIndex
     var best: Index?
 
-    while lo <= hi { // vip!
+    while lo <= hi {
       let mid = (hi - lo) / 2 + lo
 
       if mid >= count {
@@ -94,13 +94,13 @@ extension Collection
     lessThan: Comparator
     ) -> Index
   {
-    if count == 0 {
-      return 0
+    guard count > 0 else {
+      return self.startIndex
     }
 
-    var lo = self.startIndex
-    var hi = self.endIndex
-    var mid: Index = 0
+    var lo: Index = self.startIndex
+    var hi: Index = self.endIndex
+    var mid: Index = self.startIndex
 
     while lo < hi {
       mid = (hi - lo) / 2 + lo

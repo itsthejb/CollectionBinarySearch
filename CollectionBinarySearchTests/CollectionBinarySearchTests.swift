@@ -7,30 +7,52 @@
 //
 
 import XCTest
-@testable import CollectionBinarySearch
+import CollectionBinarySearch
 
-class CollectionBinarySearchTests: XCTestCase {
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+final class CollectionBinarySearchTests: XCTestCase {
+  typealias Value = UInt32
+  var a: [Value]!
+
+  struct Constants {
+    static let maxSize: Value = 512
+    static let maxValue: Value = 1024
+    static let iterations: Value = 512
+  }
+
+  func generate() -> [Value] {
+    return (0..<arc4random_uniform(Constants.maxSize)).reduce([Value]()) {
+      var a = $0.0
+      a.insertAtSorted(arc4random_uniform(Constants.maxValue))
+      return a
     }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+  }
+
+  override func setUp() {
+    super.setUp()
+    a = generate()
+  }
+
+  func testInsertionSort() {
+    measure {
+      for _ in 0..<Constants.iterations {
+        for i in 0..<max(0, self.a.count - 1) {
+          XCTAssertLessThanOrEqual(self.a[i], self.a[i + 1])
         }
+        self.a = self.generate()
+      }
     }
-    
+  }
+
+  func testBinarySearch() {
+    measure {
+      for _ in 0..<Constants.iterations {
+        for _ in 0..<max(0, self.a.count - 1) {
+          let expected = Int(arc4random_uniform(UInt32(self.a.count - 1)))
+          let actual = self.a.binarySearchIndex(of: self.a[expected])!
+          XCTAssertEqual(self.a[expected], self.a[actual])
+        }
+        self.a = self.generate()
+      }
+    }
+  }
 }

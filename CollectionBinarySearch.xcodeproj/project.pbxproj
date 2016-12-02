@@ -10,7 +10,7 @@
 		493A8C381DF1D202001908E0 /* CollectionBinarySearch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 493A8C2E1DF1D202001908E0 /* CollectionBinarySearch.framework */; };
 		493A8C3D1DF1D202001908E0 /* CollectionBinarySearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493A8C3C1DF1D202001908E0 /* CollectionBinarySearchTests.swift */; };
 		493A8C3F1DF1D202001908E0 /* CollectionBinarySearch.h in Headers */ = {isa = PBXBuildFile; fileRef = 493A8C311DF1D202001908E0 /* CollectionBinarySearch.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		493A8C491DF1D20C001908E0 /* CollectionType+BinarySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493A8C481DF1D20C001908E0 /* CollectionType+BinarySearch.swift */; };
+		493A8C491DF1D20C001908E0 /* Collection+BinarySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493A8C481DF1D20C001908E0 /* Collection+BinarySearch.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,7 +30,7 @@
 		493A8C371DF1D202001908E0 /* CollectionBinarySearchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CollectionBinarySearchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		493A8C3C1DF1D202001908E0 /* CollectionBinarySearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionBinarySearchTests.swift; sourceTree = "<group>"; };
 		493A8C3E1DF1D202001908E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		493A8C481DF1D20C001908E0 /* CollectionType+BinarySearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CollectionType+BinarySearch.swift"; sourceTree = "<group>"; };
+		493A8C481DF1D20C001908E0 /* Collection+BinarySearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+BinarySearch.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				493A8C311DF1D202001908E0 /* CollectionBinarySearch.h */,
-				493A8C481DF1D20C001908E0 /* CollectionType+BinarySearch.swift */,
+				493A8C481DF1D20C001908E0 /* Collection+BinarySearch.swift */,
 				493A8C321DF1D202001908E0 /* Info.plist */,
 			);
 			path = CollectionBinarySearch;
@@ -203,7 +203,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				493A8C491DF1D20C001908E0 /* CollectionType+BinarySearch.swift in Sources */,
+				493A8C491DF1D20C001908E0 /* Collection+BinarySearch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

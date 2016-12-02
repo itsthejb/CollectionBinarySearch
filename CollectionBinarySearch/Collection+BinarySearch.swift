@@ -1,6 +1,6 @@
 import Foundation
 
-extension Collection
+public extension Collection
   where
   Iterator.Element: Comparable,
   Iterator.Element: Equatable,
@@ -9,15 +9,15 @@ extension Collection
 {
   typealias Comparator = (Self.Iterator.Element) -> Bool
 
-  func indexOfObject(
-    _ object: Self.Iterator.Element,
+  func binarySearchIndex(
+    of object: Self.Iterator.Element,
     option: NSBinarySearchingOptions = NSBinarySearchingOptions.firstEqual) -> Index?
   {
-    return indexOfObject(equality: { $0 == object }, greaterThan: { $0 > object }, lessThan: { $0 < object })
+    return binarySearchIndex(equality: { $0 == object }, greaterThan: { $0 > object }, lessThan: { $0 < object })
   }
 
-  func indexOfObject(
-    _ option: NSBinarySearchingOptions = NSBinarySearchingOptions.firstEqual,
+  func binarySearchIndex(
+    with option: NSBinarySearchingOptions = NSBinarySearchingOptions.firstEqual,
     equality: Comparator,
     greaterThan: Comparator,
     lessThan: Comparator
@@ -29,10 +29,16 @@ extension Collection
       return indexOfBoundedObject(option, equality: equality, greaterThan: greaterThan)
     }
   }
+}
 
-  // MARK: Default
-
-  fileprivate func indexOfBoundedObject(
+fileprivate extension Collection
+  where
+  Iterator.Element: Comparable,
+  Iterator.Element: Equatable,
+  IndexDistance == Index,
+  Index: SignedInteger
+{
+  func indexOfBoundedObject(
     _ object: Self.Iterator.Element,
     option: NSBinarySearchingOptions = NSBinarySearchingOptions.firstEqual
     ) -> Index?
@@ -40,13 +46,11 @@ extension Collection
     return indexOfBoundedObject(option, equality: { $0 == object }, greaterThan: { $0 > object })
   }
 
-  fileprivate func indexOfInsertion(_ object: Self.Iterator.Element) -> Index {
+  func indexOfInsertion(_ object: Self.Iterator.Element) -> Index {
     return indexOfInsertion({ $0 == object }, greaterThan: { $0 > object }, lessThan: { $0 < object })
   }
 
-  // MARK: Private
-
-  fileprivate func indexOfBoundedObject(
+  func indexOfBoundedObject(
     _ option: NSBinarySearchingOptions = NSBinarySearchingOptions.firstEqual,
     equality: Comparator,
     greaterThan: Comparator
@@ -88,7 +92,7 @@ extension Collection
     return best
   }
 
-  fileprivate func indexOfInsertion(
+  func indexOfInsertion(
     _ equality: Comparator,
     greaterThan: Comparator,
     lessThan: Comparator
@@ -123,9 +127,15 @@ extension Collection
   }
 }
 
-extension Array where Element: Comparable, Element: Equatable
+public extension RangeReplaceableCollection
+  where
+  Iterator.Element: Comparable,
+  Iterator.Element: Equatable,
+  IndexDistance == Index,
+  Index: SignedInteger
 {
-  mutating func insertAtSortedInsertionPoint(_ object: Iterator.Element) -> Index {
+  @discardableResult
+  mutating func insertAtSorted(_ object: Iterator.Element) -> Index {
     let index = indexOfInsertion(object)
     insert(object, at: index)
     return index

@@ -3,7 +3,6 @@ import Foundation
 public extension Collection
   where
   Iterator.Element: Comparable,
-  Iterator.Element: Equatable,
   IndexDistance == Index,
   Index: SignedInteger
 {
